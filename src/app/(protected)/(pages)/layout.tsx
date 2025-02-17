@@ -4,7 +4,6 @@ import AppSidebar from "@/components/global/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { redirect } from "next/navigation";
 
-
 type Props = {
   children: React.ReactNode;
 };

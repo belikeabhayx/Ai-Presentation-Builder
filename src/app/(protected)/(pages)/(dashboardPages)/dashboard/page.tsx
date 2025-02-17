@@ -1,7 +1,7 @@
 import { getAllprojects } from "@/actions/project";
 import React from "react";
 
-const page = async () => {
+const DashboardPage = async () => {
   const allProjects = await getAllprojects();
   return (
     <div className="w-full flex flex-col gap-6 relative">
@@ -24,4 +24,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default DashboardPage;

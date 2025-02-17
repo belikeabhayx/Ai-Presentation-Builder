@@ -1,25 +1,35 @@
 import { Project } from "@prisma/client";
 import React from "react";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { JsonValue } from "@prisma/client/runtime/library";
+import { toast } from "sonner";
+import { useRouter } from "next/router";
+import { useSlideStore } from "@/store/useSlideStore";
 
 type Props = {
   recentProjects: Project[];
 };
 
 const RecentOpen = ({ recentProjects }: Props) => {
-    const handleClick = (projectId: string, slides:JsonValue) => {}
+  const router = useRouter();
+  const { setSlides } = useSlideStore();
+  const handleClick = (projectId: string, slides: JsonValue) => {
+    if (!projectId || !slides) {
+      toast.error("Project not found", { description: "Please try again" });
+      return;
+    }
+
+    setSlides(JSON.parse(JSON.stringify(slides)));
+    router.push(`/presentation/${projectId}`);
+  };
+
   return recentProjects.length > 0 ? (
     <SidebarGroup>
       <SidebarGroupLabel>recently Opened</SidebarGroupLabel>
@@ -29,7 +39,7 @@ const RecentOpen = ({ recentProjects }: Props) => {
               <SidebarMenuItem key={item.id}>
                 <SidebarMenuButton
                   asChild
-                  tooltip={item.title}
+                  tooltip={"testing"}
                   className={`hover:bg-primary-80`}
                 >
                   <Button
