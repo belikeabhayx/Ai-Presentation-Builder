@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   containerVariants,
@@ -6,12 +6,20 @@ import {
   itemVariants,
 } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
+import RecentPrompts from "../GenerateAi/RecentPrompts";
+import usePromptStore from "@/store/usePromptStore";
 
 type Props = {
   onSelectOptions: (option: string) => void;
 };
 
 const CreatePage = ({ onSelectOptions }: Props) => {
+  const { prompts, setPage } = usePromptStore();
+
+  useEffect(() => {
+    setPage("create");
+  }, []);
+
   return (
     <motion.div
       variants={containerVariants}
@@ -85,6 +93,8 @@ const CreatePage = ({ onSelectOptions }: Props) => {
           </motion.div>
         ))}
       </motion.div>
+
+      {prompts.length > 0 && <RecentPrompts />}
     </motion.div>
   );
 };

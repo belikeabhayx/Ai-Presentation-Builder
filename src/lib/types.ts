@@ -74,3 +74,13 @@ export interface Theme {
   navbarColor?: string;
   type: "light" | "dark";
 }
+
+export interface OutlineCard {
+  title: string;
+  id: string;
+  order: number;
+}
+
+export interface OutlineState {
+  cards: OutlineCard[];
+}

@@ -12,12 +12,23 @@ type Props = {
 const RenderPage = (props: Props) => {
   const router = useRouter();
   const { page, setPage } = usePromptStore();
+
+  const handleSelectOptions = (option: string) => {
+   if(option === "template") {
+    router.push('/templates')
+  }else if (option === "create-scratch") {
+    setPage("create-scratch");
+  }else if (option === "creative-ai") {
+    setPage("creative-ai");
+  }
+  };
+
   const renderStep = () => {
     switch (page) {
       case "create":
         return (
           <>
-            <CreatePage />
+            <CreatePage onSelectOptions={handleSelectOptions} />
           </>
         );
       case "create-scratch":
