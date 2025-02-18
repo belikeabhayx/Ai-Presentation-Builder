@@ -11,7 +11,7 @@ const ThumbnailPreview = ({ slide, theme }: Props) => {
   return (
     <div
       className={cn(
-        "w-full relative aspect=[16/9 rounded-lg overflow-hidden transition-all duration-200 p-2]"
+        "w-full relative aspect-[16/9] rounded-lg overflow-hidden transition-all duration-200 p-2"
       )}
       style={{
         fontFamily: theme.fontFamily,
@@ -26,7 +26,7 @@ const ThumbnailPreview = ({ slide, theme }: Props) => {
         </div>
       ) : (
         <div className="w-full h-full bg-gray-400 flex justify-center items-center">
-          <Image className="w-6 h-6 text-gray" />
+          <Image className="w-full h-full text-gray-500" />
         </div>
       )}
     </div>
