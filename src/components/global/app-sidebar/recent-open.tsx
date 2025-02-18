@@ -1,3 +1,4 @@
+'use client';
 import { Project } from "@prisma/client";
 import React from "react";
 import {
@@ -10,8 +11,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { JsonValue } from "@prisma/client/runtime/library";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
 import { useSlideStore } from "@/store/useSlideStore";
+import { useRouter } from "next/navigation";
 
 type Props = {
   recentProjects: Project[];
