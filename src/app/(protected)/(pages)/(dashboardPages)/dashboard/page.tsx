@@ -1,4 +1,7 @@
 import { getAllprojects } from "@/actions/project";
+import NotFound from "@/components/global/not-found/page";
+import ProjectCard from "@/components/global/project-card";
+import Projects from "@/components/global/projects";
 import React from "react";
 
 const DashboardPage = async () => {
@@ -16,10 +19,19 @@ const DashboardPage = async () => {
           >
             Projects
           </h1>
-          <p className="text-base font-normal dark:text-secondary">All of your work in one place</p>
+          <p className="text-base font-normal dark:text-secondary">
+            All of your work in one place
+          </p>
         </div>
       </div>
       {/* Projects */}
+      <ProjectCard/>
+      {allProjects.data && allProjects.data.length > 0 ? (
+        <Projects projects={allProjects.data} />
+      ) : (
+        // <NotFound />
+        ''
+      )}
     </div>
   );
 };

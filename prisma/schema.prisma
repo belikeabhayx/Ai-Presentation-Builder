@@ -32,17 +32,17 @@ model User {
 
 model Project {
   id         String   @id @default(cuid())
-  title      String?
+  title      String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  slides     Json
+  slides     Json?
   userId     String   @db.Uuid
   outlines   String[]
   isDeleted  Boolean  @default(false)
   isSellable Boolean  @default(false)
   varientld  String?
   thumbnail  String?
-  themeName  String?  @default("light")
+  themeName  String  @default("light")
 
   User       User   @relation("OwnedProjects", fields: [userId], references: [id])
   Purchasers User[] @relation("PurchasedProjects")

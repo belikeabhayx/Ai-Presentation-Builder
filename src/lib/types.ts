@@ -42,8 +42,6 @@ export type ContentType =
   | "table"
   | "table0fContents";
 
-
-
 export interface ContentItem {
   id: string;
   type: ContentType;
@@ -62,4 +60,17 @@ export interface ContentItem {
   language?: string;
   bgColor?: string;
   isTransparent?: boolean;
+}
+
+export interface Theme {
+  name: string;
+  fontFamily: string;
+  fontColor: string;
+  backgroundColor: string;
+  slideBackgroundColor: string;
+  accentColor: string;
+  gradientBackground?: string;
+  sidebarColor?: string;
+  navbarColor?: string;
+  type: "light" | "dark";
 }
