@@ -5,10 +5,14 @@ import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const NewProjectButton = ({user}: {user: User}) => {
+const NewProjectButton = ({ user }: { user: User }) => {
   const router = useRouter();
   return (
-    <Button size={"lg"} disabled={!user.subscription}>
+    <Button
+      size={"lg"}
+      disabled={!user.subscription}
+      onClick={() => router.push("/create-page")}
+    >
       <Plus />
       New Project
     </Button>
