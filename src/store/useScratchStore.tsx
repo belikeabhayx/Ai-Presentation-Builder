@@ -6,7 +6,7 @@ type OutlineStore = {
   outlines: OutlineCard[];
   resetOutlines: () => void;
   addOutline: (outline: OutlineCard) => void;
-  addMultipleoutlines: (outlines: OutlineCard[]) => void;
+  addMultipleOutlines: (outlines: OutlineCard[]) => void;
 };
 
 const useScratchStore = create<OutlineStore>()(
@@ -22,7 +22,7 @@ const useScratchStore = create<OutlineStore>()(
             outlines: [...state.outlines, outline],
           }));
         },
-        addMultipleoutlines: (outlines: OutlineCard[]) => {
+        addMultipleOutlines: (outlines: OutlineCard[]) => {
           set(() => ({
             outlines: [...outlines],
           }));

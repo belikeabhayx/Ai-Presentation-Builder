@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { containerVariants, itemVariants } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
@@ -62,9 +62,13 @@ const CreateAI = ({ onBack }: Props) => {
       });
       return;
     }
-    setIsGenerating(true)
-    const res = await generateCreativePrompt(currentAiPrompt)
+    setIsGenerating(true);
+    const res = await generateCreativePrompt(currentAiPrompt);
   };
+
+  useEffect(() => {
+    setNoOfCards(outlines.length);
+  }, [outlines.length]);
 
   return (
     <motion.div
@@ -166,7 +170,11 @@ const CreateAI = ({ onBack }: Props) => {
         }}
       />
       {outlines.length > 0 && (
-        <Button className="w-full" onClick={handleGenerate}>
+        <Button
+          className="w-full"
+          onClick={handleGenerate}
+          disabled={isGenerating}
+        >
           {isGenerating ? (
             <>
               <Loader2 className="animate-spin mr-2" /> Generating...
