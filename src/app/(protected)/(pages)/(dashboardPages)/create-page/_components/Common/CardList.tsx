@@ -91,7 +91,7 @@ const CardList = ({
       removedCard
     ),
       addMultipleOutlines(
-        updatedCards.map((card, index) => ({ ...card, order: index }))
+        updatedCards.map((card, index) => ({ ...card, order: index + 1 }))
       );
     setDraggedItem(null);
     setDragOverIndex(null);
@@ -144,13 +144,13 @@ const CardList = ({
       return {
         borderTop: "2px solid #000",
         marginTop: "0.5rem",
-        transition: "margin 0.2s cubic-bezier(0.25, 0.1, 0.25,1)",
+        transition: "margin 0.2s cubic-bezier(0.25, 0.1, 0.25, 1)",
       };
     } else if (cardIndex === dragOverIndex - 1) {
       return {
-        borderTop: "2px solid #000",
-        marginTop: "0.5rem",
-        transition: "margin 0.2s cubic-bezier(0.25, 0.1, 0.25,1)",
+        borderBottom: "2px solid #000",
+        marginBottom: "0.5rem",
+        transition: "margin 0.2s cubic-bezier(0.25, 0.1, 0.25, 1)",
       };
     }
 

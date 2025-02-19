@@ -161,8 +161,8 @@ const CreateAI = ({ onBack }: Props) => {
         editText={editText}
         onEditChange={setEditText}
         onCardSelect={setSelectedCard}
-        setEditingCard={setEditingCard}
         setEditText={setEditText}
+        setEditingCard={setEditingCard}
         setSelectedCard={setSelectedCard}
         onCardDoubleClick={(id, title) => {
           setEditingCard(id);

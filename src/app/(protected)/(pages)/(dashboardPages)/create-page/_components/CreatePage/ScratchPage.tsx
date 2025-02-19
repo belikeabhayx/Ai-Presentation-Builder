@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import CardList from "../Common/CardList";
 import { OutlineCard } from "@/lib/types";
-import { v4 as uuidv4, v4 } from "uuid";
+import { v4 } from "uuid";
 import { toast } from "sonner";
 import { createProject } from "@/actions/project";
 import { useSlideStore } from "@/store/useSlideStore";
@@ -106,7 +106,7 @@ const ScratchPage = ({ onBack }: Props) => {
           <Input
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
-            placeholder="Enter Propmt and add to the cards..."
+            placeholder="Enter Prompt and add to the cards..."
             className="text-base sm:text-xl border-0 focus-visible:ring-0 shadow-none p-0 bg-transparent flex-grow "
           />
           <div className="flex items-center gap-3">

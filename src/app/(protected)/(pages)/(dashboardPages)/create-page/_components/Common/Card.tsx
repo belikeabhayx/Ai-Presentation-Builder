@@ -1,5 +1,5 @@
 import { OutlineCard } from "@/lib/types";
-import React from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { Card as UICard } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -40,20 +40,20 @@ const Card = ({
   onDragOver,
   dragOverStyles,
 }: Props) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 20 }}
-      animate={{ opacity: 1, scale: 0 }}
-      exit={{ opacity: 0, scale: -20 }}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
       transition={{ type: "spring", stiffness: 500, damping: 30, mass: 1 }}
       className="relative"
     >
       <div
         draggable
-        onDrag={onDragOver}
+        onDragOver={onDragOver}
         style={dragOverStyles}
         {...dragHandlers}
       >
@@ -98,7 +98,7 @@ const Card = ({
               }}
               aria-label={`Delete card ${card.order}`}
             >
-                <Trash2 className="h-4 w-4" />
+              <Trash2 className="h-4 w-4" />
             </Button>
           </div>
         </UICard>
