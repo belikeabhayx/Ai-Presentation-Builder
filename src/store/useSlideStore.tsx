@@ -19,7 +19,7 @@ export const useSlideStore = create(
       setProject: (project) => set({ project }),
     }),
     {
-      name: "slide-storage",
+      name: "slides-storage",
     }
   )
 );

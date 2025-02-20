@@ -31,8 +31,7 @@ const AppSidebar = ({
       <SidebarHeader className="pt-6 px-2 pb-0">
         <SidebarMenuButton
           size={"lg"}
-          className="data-[state=open]
-  :text-sidebar-accent-foreground"
+          className="data-[state=open]:text-sidebar-accent-foreground"
         >
           <div
             className="flex aspect-square size-8 items-center
@@ -43,7 +42,7 @@ const AppSidebar = ({
               <AvatarFallback className=" rounded-lg">VI</AvatarFallback>
             </Avatar>
           </div>
-          <span className="trucate text-primary text-3xl font-semibold">
+          <span className="truncate text-primary text-3xl font-semibold">
             Vivid
           </span>
         </SidebarMenuButton>
@@ -53,7 +52,7 @@ const AppSidebar = ({
         <RecentOpen recentProjects={recentProjects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavFooter prismaUser={user}/>
+        <NavFooter prismaUser={user} />
       </SidebarFooter>
       <SidebarFooter />
     </Sidebar>

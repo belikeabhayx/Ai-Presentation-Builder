@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Project } from "@prisma/client";
 import React from "react";
 import {
@@ -36,7 +36,7 @@ const RecentOpen = ({ recentProjects }: Props) => {
       <SidebarGroupLabel>recently Opened</SidebarGroupLabel>
       <SidebarMenu>
         {recentProjects.length > 0
-          ? recentProjects.map((item, idx) => (
+          ? recentProjects.map((item) => (
               <SidebarMenuItem key={item.id}>
                 <SidebarMenuButton
                   asChild
@@ -53,12 +53,11 @@ const RecentOpen = ({ recentProjects }: Props) => {
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))
-          : null}{" "}
-        // Render nothing when there are no projects
+          : ''}
       </SidebarMenu>
     </SidebarGroup>
   ) : (
-    ""
+    <></>
   );
 };
 
