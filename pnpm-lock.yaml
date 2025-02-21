@@ -116,6 +116,9 @@ importers:
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
+      deepseek-api:
+        specifier: ^1.0.6
+        version: 1.0.6
       embla-carousel-react:
         specifier: ^8.5.2
         version: 8.5.2(react@19.0.0-rc-66855b96-20241106)
@@ -1563,6 +1566,9 @@ packages:
 
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
+
+  deepseek-api@1.0.6:
+    resolution: {integrity: sha512-hGySKX5XpSGyWgl8SivgD4SJPUISZSaMYHPtVE9Luyerr5HITgcDJyKG5yRMo9Iota3Ec8qrbXD540kc/lTfDw==}
 
   define-data-property@1.1.4:
     resolution: {integrity: sha512-rBMvIzlpA8v6E+SJZoo++HAYqsLrkg7MSfIinMPFhmkorw7X+dOXVJQs+QT69zGkzMyfDnIMN2Wid1+NbL3T+A==}
@@ -4462,6 +4468,8 @@ snapshots:
   decimal.js-light@2.5.1: {}
 
   deep-is@0.1.4: {}
+
+  deepseek-api@1.0.6: {}
 
   define-data-property@1.1.4:
     dependencies:

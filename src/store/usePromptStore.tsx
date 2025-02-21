@@ -8,7 +8,7 @@ type Prompt = {
   id: string;
   createdAt: string;
   title: string;
-  outline: OutlineCard[] | [];
+  outlines: OutlineCard[] | [];
 };
 
 type PromptStore = {
