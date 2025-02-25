@@ -7,20 +7,30 @@ import OpenAI from "openai";
 import { v4 as uuidv4 } from "uuid";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1",
+  defaultHeaders: {
+    "HTTP-Referer": "http://localhost:3000",
+    "X-Title": "AI Presentation Outline Generator",
+  },
 });
 
 export const generateCreativePrompt = async (userPrompt: string) => {
   const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.OPENROUTER_API_KEY,
+    baseURL: "https://openrouter.ai/api/v1",
+    defaultHeaders: {
+      "HTTP-Referer": "http://localhost:3000",
+      "X-Title": "AI Presentation Outline Generator",
+    },
   });
 
   const finalPrompt = `
     Create a coherent and relevant outline for the following prompt: ${userPrompt}.
     The outline should consist of at least 6 points, with each point written as a single sentence.
     Ensure the outline is well-structured and directly related to the topic. 
-    Return the output in the following JSON format:
-  
+    Return ONLY the raw JSON output without any formatting, markdown, or additional text:
+
     {
       "outlines": [
         "Point 1",
@@ -31,43 +41,57 @@ export const generateCreativePrompt = async (userPrompt: string) => {
         "Point 6"
       ]
     }
-  
-    Ensure that the JSON is valid and properly formatted. Do not include any other text or explanations outside the JSON.
+
+    Ensure that the JSON is valid and properly formatted. Do not include any markdown syntax or code blocks.
     `;
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "chatgpt-4o-latest",
+      model: "google/gemini-pro",
       messages: [
         {
           role: "system",
           content:
-            "You are a helpful AI that generates outlines for presentations.",
+            "You are a helpful AI that generates outlines for presentations. Respond ONLY with valid JSON without any formatting, markdown, or additional text.",
         },
         {
           role: "user",
           content: finalPrompt,
         },
       ],
+      response_format: { type: "json_object" },
       max_tokens: 1000,
       temperature: 0.0,
     });
 
     const responseContent = completion.choices[0].message?.content;
+
     if (responseContent) {
       try {
-        const jsonResponse = JSON.parse(responseContent);
+        // Clean the response from Markdown formatting
+        const cleanedResponse = responseContent
+          .replace(/```json/g, "")
+          .replace(/```/g, "")
+          .trim();
+
+        const jsonResponse = JSON.parse(cleanedResponse);
+
+        // Validate response structure
+        if (!jsonResponse.outlines || !Array.isArray(jsonResponse.outlines)) {
+          throw new Error("Invalid outline structure");
+        }
+
         return { status: 200, data: jsonResponse };
       } catch (error) {
-        console.error("Invalid JSON received:", responseContent, error);
+        console.error("JSON Parsing Error:", responseContent, error);
         return { status: 500, error: "Invalid JSON format received from AI" };
       }
     }
 
     return { status: 400, error: "No content generated" };
   } catch (error) {
-    console.error("🔴 ERROR", error);
-    return { status: 500, error: "Internal server error" };
+    console.error("API Error:", error);
+    return { status: 500, error: "Internal Server Error" };
   }
 };
 
