@@ -7,7 +7,9 @@ import { useTheme } from "next-themes";
 import { redirect, useParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { toast } from "sonner";
-import {DndProvider} from 'react-dnd'
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Navbar from "./_components/Navbar";
 
 type Props = {};
 
@@ -52,7 +54,13 @@ const Page = (props: Props) => {
     );
   }
 
-  return <DndProvider></DndProvider>
+  return (
+    <DndProvider backend={HTML5Backend}>
+      <div className="min-h-screen flex flex-col">
+        <Navbar presentationId={params.presentation as string} />
+      </div>
+    </DndProvider>
+  );
 };
 
 export default Page;
