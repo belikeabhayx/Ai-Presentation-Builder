@@ -84,3 +84,10 @@ export interface OutlineCard {
 export interface OutlineState {
   cards: OutlineCard[];
 }
+
+export interface LayoutSlides {
+  slideName: string;
+  content: ContentItem;
+  className?: string;
+  type: string;
+}
