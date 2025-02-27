@@ -13,6 +13,14 @@ import React, { useCallback } from "react";
 import DropZone from "./DropZone";
 import Paragraph from "@/components/global/editor/components/Paragraph";
 import TableComponent from "@/components/global/editor/components/TableComponent";
+import ColumnComponent from "@/components/global/editor/components/ColumnComponent";
+import CustomImage from "@/components/global/editor/components/ImageComponent";
+import BlockQuote from "@/components/global/editor/components/BlockQuote";
+import NumberedList, {
+  BulletList,
+  TodoList,
+} from "@/components/global/editor/components/ListComponent";
+import CalloutBox from "@/components/global/editor/components/CalloutBox";
 
 type MasterRecursiveComponentProps = {
   content: ContentItem;
@@ -103,6 +111,89 @@ const ContentRenderer: React.FC<MasterRecursiveComponentProps> = React.memo(
             />
           </motion.div>
         );
+      case "resizable-column":
+        if (Array.isArray(content.content)) {
+          return (
+            <motion.div className="w-full h-full" {...animationProps}>
+              <ColumnComponent
+                content={content.content as ContentItem[]}
+                className={content.className}
+                onContentChange={onContentChange}
+                slideId={slideId}
+                isPreview={isPreview}
+                isEditable={isEditable}
+              />
+            </motion.div>
+          );
+        }
+        return null;
+      case "image":
+        return (
+          <motion.div className="w-full h-full" {...animationProps}>
+            <CustomImage
+              src={content.content as string}
+              alt={content.alt || "image"}
+              className={content.className}
+              isPreview={isPreview}
+              contentId={content.id}
+              onContentChange={onContentChange}
+              isEditable={isEditable}
+            />
+          </motion.div>
+        );
+      case "blockquote":
+        return (
+          <motion.div
+            className={cn("w-full h-full flex flex-col", content.className)}
+            {...animationProps}
+          >
+            <BlockQuote>
+              <Paragraph {...commonProps} />
+            </BlockQuote>
+          </motion.div>
+        );
+      case "numberedList":
+        return (
+          <motion.div {...animationProps} className="w-full h-full">
+            <NumberedList
+              items={content.content as string[]}
+              onChange={(newItems) => onContentChange(content.id, newItems)}
+              className={content.className}
+            />
+          </motion.div>
+        );
+      case "bulletList":
+        return (
+          <motion.div {...animationProps} className="w-full h-full">
+            <BulletList
+              items={content.content as string[]}
+              onChange={(newItems) => onContentChange(content.id, newItems)}
+              className={content.className}
+            />
+          </motion.div>
+        );
+      case "todoList":
+        return (
+          <motion.div {...animationProps} className="w-full h-full">
+            <TodoList
+              items={content.content as string[]}
+              onChange={(newItems) => onContentChange(content.id, newItems)}
+              className={content.className}
+            />
+          </motion.div>
+        );
+      case "calloutBox":
+        return (
+          <motion.div {...animationProps} className="w-full h-full">
+            <CalloutBox
+              type={content.callOutType || "info"}
+              className={content.className}
+            >
+              <Paragraph {...commonProps} />
+            </CalloutBox>
+          </motion.div>
+        );
+
       case "column":
         if (Array.isArray(content.content)) {
           return (

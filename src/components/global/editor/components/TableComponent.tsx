@@ -5,7 +5,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { useSlideStore } from "@/store/useSlideStore";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 
 interface TableComponentProps {
   content: string[][];
@@ -51,6 +51,11 @@ const TableComponent = ({
     setTableData(newData);
     onChange(newData);
   };
+
+  useEffect(() => {
+    setRowSizes(new Array(tableData.length).fill(100 / tableData.length));
+    setColSizes(new Array(tableData[0].length).fill(100 / tableData[0].length));
+  }, [tableData]);
 
   if (isPreview)
     return (
