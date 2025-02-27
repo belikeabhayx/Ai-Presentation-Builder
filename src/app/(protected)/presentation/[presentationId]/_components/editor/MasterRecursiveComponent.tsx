@@ -21,6 +21,9 @@ import NumberedList, {
   TodoList,
 } from "@/components/global/editor/components/ListComponent";
 import CalloutBox from "@/components/global/editor/components/CalloutBox";
+import CodeBlock from "@/components/global/editor/components/CodeBlock";
+import TableOfContents from "@/components/global/editor/components/TableOfContents";
+import Divider from "@/components/global/editor/components/Divider";
 
 type MasterRecursiveComponentProps = {
   content: ContentItem;
@@ -191,6 +194,34 @@ const ContentRenderer: React.FC<MasterRecursiveComponentProps> = React.memo(
             >
               <Paragraph {...commonProps} />
             </CalloutBox>
+          </motion.div>
+        );
+      case "codeBlock":
+        return (
+          <motion.div {...animationProps} className="w-full h-full">
+            <CodeBlock
+              code={content.content as string}
+              className={content.className}
+              onChange={(newCode) => onContentChange(content.id, newCode)}
+            />
+          </motion.div>
+        );
+      case "table0fContents":
+        return (
+          <motion.div {...animationProps} className="w-full h-full">
+            <TableOfContents
+              items={content.content as string[]}
+              onItemClick={(id) => {
+                console.log(`Navigate to section: ${id}`);
+              }}
+              className={content.className}
+            />
+          </motion.div>
+        );
+      case "divider":
+        return (
+          <motion.div {...animationProps} className="w-full h-full">
+            <Divider className={content.className as string} />
           </motion.div>
         );
 
