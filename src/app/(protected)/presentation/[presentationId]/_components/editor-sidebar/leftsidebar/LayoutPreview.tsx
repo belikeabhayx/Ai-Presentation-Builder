@@ -2,6 +2,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSlideStore } from "@/store/useSlideStore";
 import React, { use, useEffect, useState } from "react";
+import DraggableSlidePreview from "./DraggableSlidePreview";
 
 type Props = {};
 
@@ -9,6 +10,10 @@ const LayoutPreview = (props: Props) => {
   const { getOrderedSlides, reorderSlides } = useSlideStore();
   const slides = getOrderedSlides();
   const [loading, setLoading] = useState(true);
+
+  const moveSlide = (dragIndex: number, hoverIndex: number) => {
+    reorderSlides(dragIndex, hoverIndex);
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") setLoading(false);
@@ -36,14 +41,14 @@ const LayoutPreview = (props: Props) => {
                 {slides?.length} slides
               </span>
             </div>
-            {/* {slides.map((slide, index) => (
-    <DraggableSlidePreview 
-    key={slide.id || index}
-    slide={slide}
-    index={index}
-    moveSlide={moveSlide}
-    />
-))} */}
+            {slides.map((slide, index) => (
+              <DraggableSlidePreview
+                key={slide.id || index}
+                slide={slide}
+                index={index}
+                moveSlide={moveSlide}
+              />
+            ))}
           </div>
         )}
       </ScrollArea>

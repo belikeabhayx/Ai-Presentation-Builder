@@ -224,7 +224,6 @@ const ContentRenderer: React.FC<MasterRecursiveComponentProps> = React.memo(
             <Divider className={content.className as string} />
           </motion.div>
         );
-
       case "column":
         if (Array.isArray(content.content)) {
           return (
