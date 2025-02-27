@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { LayoutSlides, Slide } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useSlideStore } from "@/store/useSlideStore";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { v4 } from "uuid";
 import { MasterRecursiveComponent } from "./MasterRecursiveComponent";
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { EllipsisVertical, Trash } from "lucide-react";
+import { updateSlides } from "@/actions/project";
 
 interface DropZoneProps {
   index: number;
@@ -91,6 +92,7 @@ export const DraggableSlide: React.FC<DraggableSlideProps> = ({
   const ref = useRef(null);
   const { currentSlide, setCurrentSlide, currentTheme, updateContentItem } =
     useSlideStore();
+
   const [{ isDragging }, drag] = useDrag({
     type: "SLIDE",
     item: {
@@ -102,6 +104,27 @@ export const DraggableSlide: React.FC<DraggableSlideProps> = ({
     }),
     canDrag: isEditable,
   });
+
+  const [_, drop] = useDrop({
+    accept: ["SLIDE", "LAYOUT"],
+    hover(item: { index: number; type: string }) {
+      if (!ref.current || !isEditable) {
+        return;
+      }
+      const dragIndex = item.index;
+      const hoverIndex = index;
+
+      if (item.type === "SLIDE") {
+        if (dragIndex === hoverIndex) {
+          return;
+        }
+        moveSlide(dragIndex, hoverIndex);
+        item.index = hoverIndex;
+      }
+    },
+  });
+
+  drag(drop(ref));
 
   const handleContentChange = (
     contentId: string,
@@ -180,6 +203,8 @@ const Editor = ({ isEditable }: Props) => {
   const orderedSlides = getOrderedSlides();
 
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const autosaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const [loading, setLoading] = useState(true);
 
   const moveSlide = (dragIndex: number, hoverIndex: number) => {
@@ -225,47 +250,68 @@ const Editor = ({ isEditable }: Props) => {
     if (typeof window !== "undefined") setLoading(false);
   }, []);
 
+  const saveSlides = useCallback(() => {
+    if (!isEditable && project) {
+      (async () => {
+        await updateSlides(project.id, JSON.parse(JSON.stringify(slides)));
+      })();
+    }
+  }, [isEditable, project, slides]);
+
+  useEffect(() => {
+    if (autosaveTimeoutRef.current) {
+      clearTimeout(autosaveTimeoutRef.current);
+    }
+    if (isEditable) {
+      autosaveTimeoutRef.current = setTimeout(() => {
+        saveSlides();
+      }, 2000);
+    }
+
+    return () => {
+      if (autosaveTimeoutRef.current) {
+        clearTimeout(autosaveTimeoutRef.current);
+      }
+    };
+  }, [slides, isEditable, project]);
+
   const handleDelete = (id: string) => {
     if (!isEditable) {
       console.log("Deleting", id);
       removeSlide(id);
     }
+  };
 
-    return (
-      <div className="flex-1 flex flex-col h-full max-w-3xl mx-auto px-4 mb-20 ">
-        {loading ? (
-          <div className="w-full px-4 flex flex-col space-y-6">
-            <Skeleton className="h-20 w-full" />
-            <Skeleton className="h-20 w-full" />
-            <Skeleton className="h-20 w-full" />
-          </div>
-        ) : (
-          <ScrollArea className="flex-1 mt-8">
-            <div className="px-4 pb-4 space-y-4 pt-2">
-              {isEditable && (
-                <DropZone
-                  index={0}
-                  onDrop={handledrop}
+  return (
+    <div className="flex-1 flex flex-col h-full max-w-3xl mx-auto px-4 mb-20 ">
+      {loading ? (
+        <div className="w-full px-4 flex flex-col space-y-6">
+          <Skeleton className="h-20 w-full" />
+          <Skeleton className="h-20 w-full" />
+          <Skeleton className="h-20 w-full" />
+        </div>
+      ) : (
+        <ScrollArea className="flex-1 mt-8">
+          <div className="px-4 pb-4 space-y-4 pt-2">
+            {isEditable && (
+              <DropZone index={0} onDrop={handledrop} isEditable={isEditable} />
+            )}
+            {orderedSlides.map((slide, index) => (
+              <React.Fragment key={slide.id || index}>
+                <DraggableSlide
+                  slide={slide}
+                  index={index}
+                  moveSlide={moveSlide}
+                  handleDelete={handleDelete}
                   isEditable={isEditable}
                 />
-              )}
-              {orderedSlides.map((slide, index) => (
-                <React.Fragment key={slide.id || index}>
-                  <DraggableSlide
-                    slide={slide}
-                    index={index}
-                    moveSlide={moveSlide}
-                    handleDelete={handleDelete}
-                    isEditable={isEditable}
-                  />
-                </React.Fragment>
-              ))}
-            </div>
-          </ScrollArea>
-        )}
-      </div>
-    );
-  };
+              </React.Fragment>
+            ))}
+          </div>
+        </ScrollArea>
+      )}
+    </div>
+  );
 };
 
 export default Editor;
