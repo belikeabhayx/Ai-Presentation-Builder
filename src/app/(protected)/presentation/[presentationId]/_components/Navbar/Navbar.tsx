@@ -4,6 +4,7 @@ import { Home, Play, Share } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import PresentationMode from "./PresentationMode";
 
 type Props = {
   presentationId: string;
@@ -64,13 +65,13 @@ const Navbar = ({ presentationId }: Props) => {
           className="flex items-center gap-2"
           onClick={() => setIsPresentationMode(true)}
         >
-            <Play className="w-4 h-4" />
-            <span className="hidden sm:inline">Present</span>
+          <Play className="w-4 h-4" />
+          <span className="hidden sm:inline">Present</span>
         </Button>
       </div>
-      {/* {isPresentationMode && <PresentationMode/>(
-          
-      )} */}
+      {isPresentationMode && (
+        <PresentationMode onClose={() => setIsPresentationMode(false)} />
+      )}
     </nav>
   );
 };
