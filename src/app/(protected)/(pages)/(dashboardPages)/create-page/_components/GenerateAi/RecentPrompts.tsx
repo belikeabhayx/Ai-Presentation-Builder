@@ -16,7 +16,7 @@ const RecentPrompts = () => {
     const prompt = prompts.find((prompt) => prompt?.id === id);
     if (prompt) {
       setPage("creative-ai");
-      addMultipleOutlines(prompt?.outline);
+      addMultipleOutlines(prompt?.outlines);
       setCurrentAiPrompt(prompt?.title);
     } else {
       toast.error("Error", { description: "Prompt not found" });

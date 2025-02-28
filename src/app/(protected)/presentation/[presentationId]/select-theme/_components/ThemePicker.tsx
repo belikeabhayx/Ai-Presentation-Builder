@@ -38,6 +38,7 @@ const ThemePicker = ({ selectedTheme, onThemeSelect }: Props) => {
         params.presentationId as string,
         currentTheme.name
       );
+      console.log("Response:", res);
       if (res.status !== 200 && !res?.data) {
         throw new Error("failed to generate layouts");
       }

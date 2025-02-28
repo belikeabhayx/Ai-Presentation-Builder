@@ -12,6 +12,7 @@ type Props = {
 const Navbar = ({ presentationId }: Props) => {
   const { currentTheme } = useSlideStore();
   const [isPresentationMode, setIsPresentationMode] = useState(false);
+  console.log("presenId", presentationId);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(

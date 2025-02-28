@@ -98,8 +98,9 @@ const ThemeCard = ({
             {content}
           </CardContent>
           <div className="relative w-full md:w-1/2 h-80 md:h-auto overflow-hidden rounded-r-lg">
+            {/* // alert // */}
             <Image
-              src={theme.backgroundImage}
+              src="https://plus.unsplash.com/premium_photo-1729004379397-ece899804701?q=80&w=2767&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Theme preview image"
               layout="fill"
               objectFit="cover"
@@ -108,7 +109,7 @@ const ThemeCard = ({
           </div>
         </div>
       </Card>
-    </motion.div> 
+    </motion.div>
   );
 };
 

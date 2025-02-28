@@ -243,7 +243,8 @@ const CreateAI = ({ onBack }: Props) => {
         >
           {isGenerating ? (
             <>
-              <Loader2 className="animate-spin mr-2" /> Generating...
+              <Loader2 className="animate-spin mr-2" />
+               Generating...
             </>
           ) : (
             "Generate"

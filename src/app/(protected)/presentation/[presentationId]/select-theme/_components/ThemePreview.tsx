@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
 import { redirect, useParams, useRouter } from "next/navigation";
 import { useSlideStore } from "@/store/useSlideStore";
 import { color, useAnimation } from "framer-motion";
@@ -18,11 +17,12 @@ const ThemePreview = (props: Props) => {
   const router = useRouter();
   const controls = useAnimation();
   const { currentTheme, setCurrentTheme, project } = useSlideStore();
+  console.log("Project", project);
 
   const [selectedTheme, setSelectedTheme] = useState<Theme>(currentTheme);
 
   useEffect(() => {
-    if (!project?.slides) {
+    if (project?.slides) {
       redirect(`/presentation/${params.presentationId}`);
     }
   }, [project]);
@@ -139,8 +139,8 @@ const ThemePreview = (props: Props) => {
   );
 
   const applyTheme = (theme: Theme) => {
-    setCurrentTheme(theme);
     setSelectedTheme(theme);
+    setCurrentTheme(theme);
   };
 
   return (
@@ -168,7 +168,7 @@ const ThemePreview = (props: Props) => {
             <ArrowLeft className="mr-2 h-5 w-5" />
             Back
           </Button>
-          <div className="w-full flex justify-center items-center relative flex-grow">
+          <div className="mt-64 w-full flex justify-center items-center relative flex-grow">
             <ThemeCard
               title="Quick Start"
               description="Get up and running in no time"
