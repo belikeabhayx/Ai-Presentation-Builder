@@ -20,13 +20,12 @@ const page = async () => {
           </p>
         </div>
         <DeleteAllButton Projects={deletedProjects.data} />
-
-        {deletedProjects.data.length > 0 ? (
-          <Projects projects={deletedProjects.data} />
-        ) : (
-          <NotFound />
-        )}
       </div>
+      {deletedProjects.data.length > 0 ? (
+        <Projects projects={deletedProjects.data} />
+      ) : (
+        <NotFound />
+      )}
     </div>
   );
 };
