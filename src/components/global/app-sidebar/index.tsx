@@ -11,9 +11,9 @@ import {
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import NavMain from "./nav-main";
-import { data } from "@/lib/constants";
 import RecentOpen from "./recent-open";
 import NavFooter from "./nav-footer";
+import { data } from "@/lib/constants";
 
 const AppSidebar = ({
   recentProjects,
@@ -34,8 +34,7 @@ const AppSidebar = ({
           className="data-[state=open]:text-sidebar-accent-foreground"
         >
           <div
-            className="flex aspect-square size-8 items-center
-   justify-center rounded-lg text-sidebar-primary-foreground"
+            className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground"
           >
             <Avatar className="h-10 w-10 rounded-full">
               <AvatarImage src={"/vivid.png*"} alt={`vivid-logo`} />

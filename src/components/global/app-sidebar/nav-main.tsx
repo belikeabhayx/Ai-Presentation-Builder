@@ -16,10 +16,10 @@ const NavMain = ({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon: string
-    isActive?: boolean
+    title: string;
+    url: string;
+    icon: React.ComponentType<any>;
+    isActive?: boolean;
     items?: {
       title: string;
       url: string;
@@ -43,7 +43,7 @@ const NavMain = ({
                   pathname.includes("item.url") && "text-primary"
                 }`}
               >
-                <Clock className="text-lg" />
+                <item.icon className="text-lg" />
                 <span>{item.title}</span>
               </Link>
             </SidebarMenuButton>
