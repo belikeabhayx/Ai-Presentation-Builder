@@ -252,7 +252,7 @@ const Editor = ({ isEditable }: Props) => {
   }, []);
 
   const saveSlides = useCallback(() => {
-    if (!isEditable && project) {
+    if (isEditable && project) {
       (async () => {
         await updateSlides(project.id, JSON.parse(JSON.stringify(slides)));
       })();

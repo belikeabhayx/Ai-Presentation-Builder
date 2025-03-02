@@ -1,4 +1,4 @@
-import { LayoutTemplate, Settings, Trash } from "lucide-react";
+import { Home, LayoutTemplate, Settings, Trash } from "lucide-react";
 import {
   BlankCard,
   AccentLeft,
@@ -28,8 +28,20 @@ import {
   TwoColumnsWithHeadingsIcon,
   TwoImageColumnsIcon,
 } from "./IconsComponent";
-import Home from "@/app/page";
-import { BulletListComponent, CalloutBoxComponent, Heading1, Heading2, Heading3, Heading4, NumberedListComponent, Paragraph, ResizableColumn, Table, Title, TodoListComponent } from "./slideComponents";
+import {
+  BulletListComponent,
+  CalloutBoxComponent,
+  Heading1,
+  Heading2,
+  Heading3,
+  Heading4,
+  NumberedListComponent,
+  Paragraph,
+  ResizableColumn,
+  Table,
+  Title,
+  TodoListComponent,
+} from "./slideComponents";
 
 export const data = {
   user: {
