@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { EllipsisVertical, Trash } from "lucide-react";
 import { updateSlides } from "@/actions/project";
+import DownloadPPTButton from "@/components/try/pptButton";
 
 interface DropZoneProps {
   index: number;
@@ -191,6 +192,7 @@ type Props = {
 };
 
 const Editor = ({ isEditable }: Props) => {
+  
   const {
     getOrderedSlides,
     currentSlide,
@@ -284,7 +286,10 @@ const Editor = ({ isEditable }: Props) => {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full max-w-3xl mx-auto px-4 mb-20 ">
+    <div className="flex-1 flex flex-col h-full max-w-3xl mx-auto px-4 mb-20">
+      <div className="flex justify-end mb-4 mt-4">
+        {project && <DownloadPPTButton projectId={project.id} />}
+      </div>
       {loading ? (
         <div className="w-full px-4 flex flex-col space-y-6">
           <Skeleton className="h-20 w-full" />
